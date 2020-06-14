@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styling/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styling/main.css">
+    <title>Yahtzee</title>
+  </head>
+  <body class="playerSelectionTab">
+    <div id="contentViewer">
+        <img src="assets/uiElements/text/playerOneBanner.svg" class="playerOneBanner"></img>
+    </div>
+    <input type="image" src="assets/uiElements/buttons/playerSelectLeft.svg" class="playerSelectLeft" id="playerSelectLeft"></input>
+    <div>
+        <img src="assets/playerSprites/svg/1.svg" class="spriteView" id="spriteImage"></img>
+    </div>
+    <input type="image" src="assets/uiElements/buttons/playerSelectRight.svg" class="playerSelectRight" id="playerSelectRight"></input>
+    <input type="image" src="assets/uiElements/buttons/playerReadyButton.svg" class="playerReadyButton" id="playerReadyButton"></input>
+    <script src="scripts/playerSelection.js"></script>
+  </body>
+</html>

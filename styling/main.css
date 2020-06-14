@@ -1,0 +1,84 @@
+.homeViewTab {
+    background-color: #628BB4;
+}
+
+.playerSelectionTab {
+    background-color: white;
+}
+
+.mainLogo {
+    top: 195px;
+    left: 224px;
+    position: absolute;
+}
+
+.singlePlayerButton {
+    top: 323px;
+    left: 324px;
+    position: absolute; 
+    border-radius: 10px;
+}
+
+.multiplayerButton {
+    top: 383px;
+    left: 324px;
+    position: absolute; 
+    border-radius: 10px;
+}
+
+.creditButton {
+    top: 443px;
+    left: 324px;
+    position: absolute; 
+    border-radius: 10px;
+}
+
+.singlePlayerButton:hover {
+    opacity: 85%;
+}
+
+.multiplayerButton:hover {
+    opacity: 85%;
+}
+
+.creditButton:hover {
+    opacity: 85%;
+}
+
+.playerOneBanner {
+    top: 118px;
+    left: 284px;
+    position: absolute;
+}
+
+.playerSelectLeft {
+    top: 261.5px;
+    left: 565.5px;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.playerSelectRight {
+    top: 261.5px;
+    left: 133.5px;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.spriteView {
+    width: 180px;
+    height: 180px;
+    margin: 0;
+    padding: 0;
+    top: 223px;
+    left: 310px;
+    position: absolute;
+}
+
+.playerReadyButton {
+    top: 520px;
+    left: 366px;
+    position: absolute;
+}

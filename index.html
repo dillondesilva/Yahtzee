@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styling/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styling/main.css">
+    <title>Yahtzee</title>
+  </head>
+  <body class="homeViewTab">
+    <img src="assets/logo/YahtzeeLogo.svg" class="mainLogo"></img>
+    <input type="image" id="singlePlayerButton" src="assets/uiElements/buttons/singlePlayerButton.svg" class="singlePlayerButton"/>
+    <input type="image" src="assets/uiElements/buttons/multiplayerButton.svg" class="multiplayerButton"/>
+    <input type="image" src="assets/uiElements/buttons/creditButton.svg" class="creditButton"/>
+    <script src="./renderer.js"></script>
+    <script src="./root.js"></script>
+    <script src="scripts/homePage.js"></script>
+  </body>
+</html>

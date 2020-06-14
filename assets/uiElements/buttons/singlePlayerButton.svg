@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="153" height="50" viewBox="0 0 153 50">
+  <g id="singlePlayerButton" transform="translate(-324 -323)">
+    <g id="Rectangle_1" data-name="Rectangle 1" transform="translate(324 323)" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="10">
+      <rect width="153" height="50" stroke="none"/>
+      <rect x="5" y="5" width="143" height="40" fill="none"/>
+    </g>
+    <text id="Single_Player_" data-name="Single Player " transform="translate(400 354)" fill="#7b42b4" font-size="20" font-family="DINCondensed-Bold, DIN Condensed" font-weight="700"><tspan x="-42.43" y="0">Single Player </tspan></text>
+  </g>
+</svg>

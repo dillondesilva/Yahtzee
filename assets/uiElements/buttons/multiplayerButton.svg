@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="153" height="50" viewBox="0 0 153 50">
+  <g id="multiplayerButton" transform="translate(-324 -383)">
+    <g id="Rectangle_2" data-name="Rectangle 2" transform="translate(324 383)" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="10">
+      <rect width="153" height="50" stroke="none"/>
+      <rect x="5" y="5" width="143" height="40" fill="none"/>
+    </g>
+    <text id="Multiplayer_" data-name="Multiplayer " transform="translate(400 416)" fill="#7b42b4" font-size="20" font-family="DINCondensed-Bold, DIN Condensed" font-weight="700"><tspan x="-36.34" y="0">Multiplayer </tspan></text>
+  </g>
+</svg>

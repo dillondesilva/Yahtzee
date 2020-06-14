@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="50" viewBox="0 0 68 50">
+  <g id="Group_10" data-name="Group 10" transform="translate(-366 -537)">
+    <g id="Rectangle_7" data-name="Rectangle 7" transform="translate(366 537)" fill="none" stroke="#40be5d" stroke-linejoin="round" stroke-width="4">
+      <rect width="68" height="50" stroke="none"/>
+      <rect x="2" y="2" width="64" height="46" fill="none"/>
+    </g>
+    <text id="GO_" data-name="GO!" transform="translate(400 572)" fill="#40be5d" font-size="30" font-family="DINCondensed-Bold, DIN Condensed" font-weight="700"><tspan x="-16.38" y="0">GO!</tspan></text>
+  </g>
+</svg>

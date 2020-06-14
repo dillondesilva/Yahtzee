@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="153" height="50" viewBox="0 0 153 50">
+  <g id="creditButton" transform="translate(-324 -456)">
+    <g id="Group_4" data-name="Group 4" transform="translate(0 -49)">
+      <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(324 505)" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="10">
+        <rect width="153" height="50" stroke="none"/>
+        <rect x="5" y="5" width="143" height="40" fill="none"/>
+      </g>
+      <text id="Credits" transform="translate(400 538)" fill="#7b42b4" font-size="20" font-family="DINCondensed-Bold, DIN Condensed" font-weight="700"><tspan x="-21.86" y="0">Credits</tspan></text>
+    </g>
+  </g>
+</svg>

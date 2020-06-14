@@ -1,0 +1,16 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "Yahtzee!",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^8.2.0"
+  }
+}
