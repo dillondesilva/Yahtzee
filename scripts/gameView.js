@@ -17,7 +17,8 @@ var diceD = document.getElementById("diceD");
 var diceE = document.getElementById("diceE");
 
 // Configuring scoring cells for the upper house
-var upperHouseScores = {
+// and lower house (for each player)
+var playerOneUpperHouseScores = {
     ones: [true, 0], 
     twos: [true, 0],
     threes: [true, 0],
@@ -27,7 +28,7 @@ var upperHouseScores = {
     total: 0
 }
 
-var lowerHouseScores = {
+var playerOneLowerHouseScores = {
     threeKind: [true, 0], 
     fourKind: [true, 0],
     smallStraight: [true, 0],
@@ -36,7 +37,29 @@ var lowerHouseScores = {
     chance: [true, 0]
 }
 
-var total = 0;
+var playerTwoUpperHouseScores = {
+    ones: [true, 0], 
+    twos: [true, 0],
+    threes: [true, 0],
+    fours: [true, 0],
+    fives: [true, 0],
+    sixes: [true, 0],
+    total: 0
+}
+
+var playerTwoLowerHouseScores = {
+    threeKind: [true, 0], 
+    fourKind: [true, 0],
+    smallStraight: [true, 0],
+    largeStraight: [true, 0],
+    yahtzee: [true, 0],
+    chance: [true, 0]
+}
+
+var playerOneTotal = 0;
+var playerTwoTotal = 0;
+var diceRollsLeft = 3;
+var currentPlayer = 1;
 
 // Getting cell elements for scores 
 var onesCellPlayerOne = document.getElementById("onesPlayerOne");
@@ -46,7 +69,27 @@ var foursCellPlayerOne = document.getElementById("foursPlayerOne");
 var fivesCellPlayerOne = document.getElementById("fivesPlayerOne");
 var sixesCellPlayerOne = document.getElementById("sixesPlayerOne");
 
+var onesCellPlayerTwo = document.getElementById("onesPlayerTwo");
+var twosCellPlayerTwo = document.getElementById("twosPlayerTwo");
+var threesCellPlayerTwo = document.getElementById("threesPlayerTwo");
+var foursCellPlayerTwo = document.getElementById("foursPlayerTwo");
+var fivesCellPlayerTwo = document.getElementById("fivesPlayerTwo");
+var sixesCellPlayerTwo = document.getElementById("sixesPlayerTwo");
+
 var threeKCellPlayerOne = document.getElementById("threeKindPlayerOne");
+var fourKCellPlayerOne = document.getElementById("fourKindPlayerOne");
+
+var threeKCellPlayerTwo = document.getElementById("threeKindPlayerTwo");
+var fourKCellPlayerTwo = document.getElementById("fourKindPlayerTwo");
+
+var allCells = [
+    onesCellPlayerOne, twosCellPlayerOne, threesCellPlayerOne,
+    foursCellPlayerOne, fivesCellPlayerOne, sixesCellPlayerOne,
+    onesCellPlayerTwo, twosCellPlayerTwo, threesCellPlayerTwo,
+    foursCellPlayerTwo, fivesCellPlayerTwo, sixesCellPlayerTwo,
+    threeKCellPlayerOne, fourKCellPlayerOne, threeKCellPlayerTwo,
+    fourKCellPlayerTwo
+]
 
 // Configuring dice to handle clicks
 diceA.addEventListener("click", () => {
@@ -123,224 +166,314 @@ function rollDice() {
     }, 3000)
 }
 
+function switchPlayer() {
+    if (currentPlayer === 1) {
+        currentPlayer = 2;
+    } else {
+        currentPlayer = 1;
+    }
+
+    diceRollsLeft = 3;
+    configureDice();
+}
+
 function validateOnes() {
-    var onesData = upperHouseScores["ones"];
-    var onesAvailable = onesData[0];
+    var onesData;
+    var onesAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = onesCellPlayerOne; 
+        onesData = playerOneUpperHouseScores["ones"];
+        onesAvailable = onesData[0]; 
+    } else {
+        playerScoreCell = onesCellPlayerTwo;  
+        onesData = playerTwoUpperHouseScores["ones"];
+        onesAvailable = onesData[0]; 
+    }
+
     if (onesAvailable) {
         if (diceValues.includes(1)) {
             var onesScore = 0;
             for (i of diceValues) {
                 if (i === 1) {
-                    onesScore += 1;
+                    onesScore += i;  
                 }
             }
-    
-            onesCellPlayerOne.innerHTML = onesScore;
-            onesCellPlayerOne.style.backgroundColor = "#50c878";
-            onesCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            onesCellPlayerOne.style.webkitAnimationDuration = '1s';
-            onesCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            onesCellPlayerOne.addEventListener("click", () => {
-                total += onesScore;
-                upperHouseScores["ones"] = [false, onesScore];
-                onesCellPlayerOne.style.backgroundColor = "white"; 
-                onesCellPlayerOne.style.opacity = 1;
-                onesCellPlayerOne.style.webkitAnimationName = '';
-                onesCellPlayerOne.style.webkitAnimationDuration = '';
+
+            enableAnimation(playerScoreCell, onesScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["ones"] = [false, onesScore];
+                    playerOneTotal += onesScore
+                } else {
+                    playerTwoUpperHouseScores["ones"] = [false, onesScore];
+                    playerTwoTotal += onesScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
+
+                fixScore(playerScoreCell, onesScore);
+                clearCells();
+                endTurn();
             }) 
         } else {
-            onesCellPlayerOne.innerHTML = "";
-            onesCellPlayerOne.style.opacity = 1;
-            onesCellPlayerOne.style.backgroundColor = "white"; 
-            onesCellPlayerOne.style.webkitAnimationName = '';
-            onesCellPlayerOne.style.webkitAnimationDuration = '';
-        }
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
 function validateTwos() {
-    var twosData = upperHouseScores["twos"];
-    var twosAvailable = twosData[0];
+    var twosData;
+    var twosAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = twosCellPlayerOne; 
+        twosData = playerOneUpperHouseScores["twos"];
+        twosAvailable = twosData[0]; 
+    } else {
+        playerScoreCell = twosCellPlayerTwo;  
+        twosData = playerTwoUpperHouseScores["twos"];
+        twosAvailable = twosData[0]; 
+    }
+
     if (twosAvailable) {
         if (diceValues.includes(2)) {
             var twosScore = 0;
             for (i of diceValues) {
                 if (i === 2) {
-                    twosScore += 2;
+                    twosScore += i;  
                 }
             }
+
+            enableAnimation(playerScoreCell, twosScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["twos"] = [false, twosScore];
+                    playerOneTotal += twosScore
+                } else {
+                    playerTwoUpperHouseScores["twos"] = [false, twosScore];
+                    playerTwoTotal += twosScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            twosCellPlayerOne.innerHTML = twosScore;
-            twosCellPlayerOne.style.backgroundColor = "#50c878";
-            twosCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            twosCellPlayerOne.style.webkitAnimationDuration = '1s';
-            twosCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            twosCellPlayerOne.addEventListener("click", () => {
-                total += twosScore;
-                upperHouseScores["twos"] = [false, twosScore];
-                twosCellPlayerOne.style.backgroundColor = "white"; 
-                twosCellPlayerOne.style.opacity = 1;
-                twosCellPlayerOne.style.webkitAnimationName = '';
-                twosCellPlayerOne.style.webkitAnimationDuration = '';
+                fixScore(playerScoreCell, twosScore);
+                clearCells();
+                endTurn();
             }) 
         } else {
-            twosCellPlayerOne.innerHTML = "";
-            twosCellPlayerOne.style.opacity = 1;
-            twosCellPlayerOne.style.backgroundColor = "white"; 
-            twosCellPlayerOne.style.webkitAnimationName = '';
-            twosCellPlayerOne.style.webkitAnimationDuration = '';
-        }
-
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
-
 function validateThrees() {
-    var threesData = upperHouseScores["threes"];
-    var threesAvailable = threesData[0];
+    var threesData;
+    var threesAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = threesCellPlayerOne; 
+        threesData = playerOneUpperHouseScores["threes"];
+        threesAvailable = threesData[0]; 
+    } else {
+        playerScoreCell = threesCellPlayerTwo;  
+        threesData = playerTwoUpperHouseScores["threes"];
+        threesAvailable = threesData[0]; 
+    }
+
     if (threesAvailable) {
         if (diceValues.includes(3)) {
             var threesScore = 0;
             for (i of diceValues) {
                 if (i === 3) {
-                    threesScore += 3;
+                    threesScore += i;  
                 }
             }
+
+            enableAnimation(playerScoreCell, threesScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["threes"] = [false, threesScore];
+                    playerOneTotal += threesScore
+                } else {
+                    playerTwoUpperHouseScores["threes"] = [false, threesScore];
+                    playerTwoTotal += threesScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            threesCellPlayerOne.innerHTML = threesScore;
-            threesCellPlayerOne.style.backgroundColor = "#50c878";
-            threesCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            threesCellPlayerOne.style.webkitAnimationDuration = '1s';
-            threesCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            threesCellPlayerOne.addEventListener("click", () => {
-                total += threesScore;
-                upperHouseScores["threes"] = [false, threesScore];
-                threesCellPlayerOne.style.backgroundColor = "white"; 
-                threesCellPlayerOne.style.opacity = 1;
-                threesCellPlayerOne.style.webkitAnimationName = '';
-                threesCellPlayerOne.style.webkitAnimationDuration = '';
-            })
+                fixScore(playerScoreCell, threesScore);
+                clearCells();
+                endTurn();
+            }) 
         } else {
-            threesCellPlayerOne.innerHTML = "";
-            threesCellPlayerOne.style.opacity = 1;
-            threesCellPlayerOne.style.backgroundColor = "white"; 
-            threesCellPlayerOne.style.webkitAnimationName = '';
-            threesCellPlayerOne.style.webkitAnimationDuration = '';
-        }
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
 function validateFours() {
-    var foursData = upperHouseScores["fours"];
-    var foursAvailable = foursData[0];
+    var foursData;
+    var foursAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = foursCellPlayerOne; 
+        foursData = playerOneUpperHouseScores["fours"];
+        foursAvailable = foursData[0]; 
+    } else {
+        playerScoreCell = foursCellPlayerTwo;  
+        foursData = playerTwoUpperHouseScores["fours"];
+        foursAvailable = foursData[0]; 
+    }
+
     if (foursAvailable) {
         if (diceValues.includes(4)) {
             var foursScore = 0;
             for (i of diceValues) {
                 if (i === 4) {
-                    foursScore += 4;
+                    foursScore += i;  
                 }
             }
+
+            enableAnimation(playerScoreCell, foursScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["fours"] = [false, foursScore];
+                    playerOneTotal += foursScore
+                } else {
+                    playerTwoUpperHouseScores["fours"] = [false, foursScore];
+                    playerTwoTotal += foursScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            foursCellPlayerOne.innerHTML = foursScore;
-            foursCellPlayerOne.style.backgroundColor = "#50c878";
-            foursCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            foursCellPlayerOne.style.webkitAnimationDuration = '1s';
-            foursCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            foursCellPlayerOne.addEventListener("click", () => {
-                total += foursScore;
-                upperHouseScores["fours"] = [false, foursScore];
-                foursCellPlayerOne.style.backgroundColor = "white"; 
-                foursCellPlayerOne.style.opacity = 1;
-                foursCellPlayerOne.style.webkitAnimationName = '';
-                foursCellPlayerOne.style.webkitAnimationDuration = '';
-            })
+                fixScore(playerScoreCell, foursScore);
+                clearCells();
+                endTurn();
+            }) 
         } else {
-            foursCellPlayerOne.innerHTML = "";
-            foursCellPlayerOne.style.opacity = 1;
-            foursCellPlayerOne.style.backgroundColor = "white"; 
-            foursCellPlayerOne.style.webkitAnimationName = '';
-            foursCellPlayerOne.style.webkitAnimationDuration = '';
-        }
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
-
 function validateFives() {
-    var fivesData = upperHouseScores["fives"];
-    var fivesAvailable = fivesData[0];
+    var fivesData;
+    var fivesAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = fivesCellPlayerOne; 
+        fivesData = playerOneUpperHouseScores["fives"];
+        fivesAvailable = fivesData[0]; 
+    } else {
+        playerScoreCell = fivesCellPlayerTwo;  
+        fivesData = playerTwoUpperHouseScores["fives"];
+        fivesAvailable = fivesData[0]; 
+    }
+
     if (fivesAvailable) {
         if (diceValues.includes(5)) {
             var fivesScore = 0;
             for (i of diceValues) {
                 if (i === 5) {
-                    fivesScore += 5;
+                    fivesScore += i;  
                 }
             }
+
+            enableAnimation(playerScoreCell, fivesScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["fives"] = [false, fivesScore];
+                    playerOneTotal += fivesScore
+                } else {
+                    playerTwoUpperHouseScores["fives"] = [false, fivesScore];
+                    playerTwoTotal += fivesScore
+                }
+                
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            fivesCellPlayerOne.innerHTML = fivesScore;
-            fivesCellPlayerOne.style.backgroundColor = "#50c878";
-            fivesCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            fivesCellPlayerOne.style.webkitAnimationDuration = '1s';
-            fivesCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            fivesCellPlayerOne.addEventListener("click", () => {
-                total += fivesScore;
-                upperHouseScores["fives"] = [false, fivesScore];
-                fivesCellPlayerOne.style.backgroundColor = "white"; 
-                fivesCellPlayerOne.style.opacity = 1;
-                fivesCellPlayerOne.style.webkitAnimationName = '';
-                fivesCellPlayerOne.style.webkitAnimationDuration = '';
+                fixScore(playerScoreCell, fivesScore);
+                clearCells();
+                endTurn();
             }) 
         } else {
-            fivesCellPlayerOne.innerHTML = "";
-            fivesCellPlayerOne.style.opacity = 1;
-            fivesCellPlayerOne.style.backgroundColor = "white"; 
-            fivesCellPlayerOne.style.webkitAnimationName = '';
-            fivesCellPlayerOne.style.webkitAnimationDuration = '';
-        }
-        
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
 
 function validateSixes() {
-    var sixesData = upperHouseScores["sixes"];
-    var sixesAvailable = sixesData[0];
+    var sixesData;
+    var sixesAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = sixesCellPlayerOne; 
+        sixesData = playerOneUpperHouseScores["sixes"];
+        sixesAvailable = sixesData[0]; 
+    } else {
+        playerScoreCell = sixesCellPlayerTwo;  
+        sixesData = playerTwoUpperHouseScores["sixes"];
+        sixesAvailable = sixesData[0]; 
+    }
+
     if (sixesAvailable) {
         if (diceValues.includes(6)) {
             var sixesScore = 0;
             for (i of diceValues) {
                 if (i === 6) {
-                    sixesScore += 6;
+                    sixesScore += i;  
                 }
             }
+
+            enableAnimation(playerScoreCell, sixesScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneUpperHouseScores["sixes"] = [false, sixesScore];
+                    playerOneTotal += sixesScore;
+                } else {
+                    playerTwoUpperHouseScores["sixes"] = [false, sixesScore];
+                    playerTwoTotal += sixesScore;
+                }
+                
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            sixesCellPlayerOne.innerHTML = sixesScore;
-            sixesCellPlayerOne.style.backgroundColor = "#50c878";
-            sixesCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            sixesCellPlayerOne.style.webkitAnimationDuration = '1s';
-            sixesCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            sixesCellPlayerOne.addEventListener("click", () => {
-                total += sixesScore;
-                upperHouseScores["sixes"] = [false, sixesScore];
-                sixesCellPlayerOne.style.backgroundColor = "white"; 
-                sixesCellPlayerOne.style.opacity = 1;
-                sixesCellPlayerOne.style.webkitAnimationName = '';
-                sixesCellPlayerOne.style.webkitAnimationDuration = '';
+                fixScore(playerScoreCell, sixesScore);
+                clearCells();
+                endTurn();
             }) 
         } else {
-            sixesCellPlayerOne.innerHTML = "";
-            sixesCellPlayerOne.style.opacity = 1;
-            sixesCellPlayerOne.style.backgroundColor = "white"; 
-            sixesCellPlayerOne.style.webkitAnimationName = '';
-            sixesCellPlayerOne.style.webkitAnimationDuration = '';
-        }
+            disableAnimation(playerScoreCell);
+        } 
     }
 }
 
 function validateThreeOfAKind() {
-    var threeKindData = lowerHouseScores["threeKind"];
-    var threeKindAvailable = threeKindData[0]; 
+    var threeKindData;
+    var threeKindAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = threeKCellPlayerOne; 
+        threeKindData = playerOneLowerHouseScores["threeKind"];
+        threeKindAvailable = threeKindData[0]; 
+    } else {
+        playerScoreCell = threeKCellPlayerTwo;  
+        threeKindData = playerTwoLowerHouseScores["threeKind"];
+        threeKindAvailable = threeKindData[0]; 
+    }
 
     if (threeKindAvailable) {
         if (diceFrequency.includes(3)) {
@@ -348,33 +481,116 @@ function validateThreeOfAKind() {
             for (i of diceValues) {
                 threeKindScore += i;
             }
+
+            enableAnimation(playerScoreCell, threeKindScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneLowerHouseScores["threeKind"] = [false, threeKindScore];
+                    playerOneTotal += threeKindScore
+                } else {
+                    playerTwoLowerHouseScores["threeKind"] = [false, threeKindScore];
+                    playerTwoTotal += threeKindScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
     
-            threeKCellPlayerOne.innerHTML = threeKindScore;
-            threeKCellPlayerOne.style.backgroundColor = "#50c878";
-            threeKCellPlayerOne.style.webkitAnimationName = 'animateCell';
-            threeKCellPlayerOne.style.webkitAnimationDuration = '1s';
-            threeKCellPlayerOne.style.webkitAnimationIterationCount = 'infinite';
-            threeKCellPlayerOne.addEventListener("click", () => {
-                total += threeKScore;
-                lowerHouseScores["threeKind"] = [false, threeKindScore];
-                threeKCellPlayerOne.style.backgroundColor = "white"; 
-                threeKCellPlayerOne.style.opacity = 1;
-                threeKCellPlayerOne.style.webkitAnimationName = '';
-                threeKCellPlayerOne.style.webkitAnimationDuration = '';
+                fixScore(playerScoreCell, threeKindScore);
+                clearCells();
+                endTurn();
             }) 
         } else {
-            threeKCellPlayerOne.innerHTML = "";
-            threeKCellPlayerOne.style.opacity = 1;
-            threeKCellPlayerOne.style.backgroundColor = "white"; 
-            threeKCellPlayerOne.style.webkitAnimationName = '';
-            threeKCellPlayerOne.style.webkitAnimationDuration = '';
+            disableAnimation(playerScoreCell);
         } 
     }
+}
+
+function validateFourOfAKind() {
+    var fourKindData;
+    var fourKindAvailable;
+    var playerScoreCell;
+
+    if (currentPlayer === 1) {
+        playerScoreCell = fourKCellPlayerOne; 
+        fourKindData = playerOneLowerHouseScores["fourKind"];
+        fourKindAvailable = fourKindData[0]; 
+    } else {
+        playerScoreCell = fourKCellPlayerTwo;  
+        fourKindData = playerTwoLowerHouseScores["fourKind"];
+        fourKindAvailable = fourKindData[0]; 
+    }
+
+    if (fourKindAvailable) {
+        if (diceFrequency.includes(4)) {
+            var fourKindScore = 0;
+            for (i of diceValues) {
+                fourKindScore += i;
+            }
+
+            enableAnimation(playerScoreCell, fourKindScore);
+
+            playerScoreCell.addEventListener("click", () => {
+                if (currentPlayer === 1) {
+                    playerOneLowerHouseScores["fourKind"] = [false, fourKindScore];
+                    playerOneTotal += fourKindScore
+                } else {
+                    playerTwoLowerHouseScores["fourKind"] = [false, fourKindScore];
+                    playerTwoTotal += fourKindScore
+                }
+
+                allCells.splice(allCells.indexOf(playerScoreCell), 1);
+    
+                fixScore(playerScoreCell, fourKindScore);
+                clearCells();
+                endTurn();
+            }) 
+        } else {
+            disableAnimation(playerScoreCell);
+        } 
+    }
+}
+
+function endTurn() {
+    switchPlayer();
+}
+
+function clearCells() {
+    for (cell of allCells) {
+        console.log(cell)
+        disableAnimation(cell);
+    }
+}
+
+function enableAnimation(scoreCell, score) {
+    scoreCell.innerHTML = score;
+    scoreCell.style.backgroundColor = "#50c878";
+    scoreCell.style.webkitAnimationName = 'animateCell';
+    scoreCell.style.webkitAnimationDuration = '1s';
+    scoreCell.style.webkitAnimationIterationCount = 'infinite'; 
+}
+
+function disableAnimation(scoreCell) {
+    scoreCell.innerHTML = "";
+    scoreCell.style.opacity = 1;
+    scoreCell.style.backgroundColor = "white"; 
+    scoreCell.style.webkitAnimationName = '';
+    scoreCell.style.webkitAnimationDuration = ''; 
+}
+
+function fixScore(scoreCell, score) {
+    scoreCell.innerHTML = score;
+    scoreCell.style.opacity = 1;
+    scoreCell.style.backgroundColor = "white"; 
+    scoreCell.style.webkitAnimationName = '';
+    scoreCell.style.webkitAnimationDuration = '';  
 }
 
 // Decides whether certain scoring cells can be selected or
 // not
 function allocateAvailableScores() {
+    // Quickly reducing the number of available rolls
+    diceRollsLeft -= 1;
+
     // Upper house scores to validate
     validateOnes();
     validateTwos();
@@ -385,6 +601,12 @@ function allocateAvailableScores() {
 
     // Lower house scores to validate
     validateThreeOfAKind();
+    validateFourOfAKind();
+
+    // Checking whether it is ok to switch players
+    if (diceRollsLeft === 0) {
+        switchPlayer();
+    }
 }
 
 function getDiceToRoll() {
