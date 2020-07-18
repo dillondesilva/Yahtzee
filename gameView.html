@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styling/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styling/main.css">
+    <title>Yahtzee</title>
+  </head>
+  <body class="gameViewTab">
+    <input type="image" src="assets/uiElements/buttons/returnButton.svg" class="returnButton" id="returnButton">
+    <img src="assets/uiElements/other/divider.svg">
+    <img class="diceA" id="diceA">
+    <img class="diceB" id="diceB">
+    <img class="diceC" id="diceC">
+    <img class="diceD" id="diceD">
+    <img class="diceE" id="diceE">
+    <img class="playerOne" id="playerOneImage">
+    <img class="playerTwo" id="playerTwoImage">
+    <img class="rollButton" id="rollButton" src="assets/uiElements/buttons/rollButton.svg">
+    <table class="scoreCard">
+        <tr>
+          <th>UPPER HOUSE</th>
+          <th id="playerOneTable"></th>
+          <th id="playerTwoTable"></th>
+        </tr>
+        <tr>
+            <th>Ones</th>
+            <th id="onesPlayerOne"></th>
+            <th id="onesPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>Twos</th>
+            <th id="twosPlayerOne"></th>
+            <th id="twosPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>Threes</th>
+            <th id="threesPlayerOne"></th>
+            <th id="threesPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>Fours</th>
+            <th id="foursPlayerOne"></th>
+            <th id="foursPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>Fives</th>
+            <th id="fivesPlayerOne"></th>
+            <th id="fivesPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>Sixes</th>
+            <th id="sixesPlayerOne"></th>
+            <th id="sixesPlayerTwo"></th>
+        </tr>
+        <tr>
+            <th>LOWER HOUSE</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>3K</th>
+            <th id="threeKindPlayerOne"></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>4K</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Full House</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Small Straight</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Large Straight</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Yahtzee!</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Bonus</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>TOTAL SCORE</th>
+            <th></th>
+            <th></th>
+        </tr>
+     </table>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./scripts/gameView.js"></script>
+  </body>
+</html>

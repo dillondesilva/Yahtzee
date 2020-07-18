@@ -1,9 +1,19 @@
+@font-face {
+    font-family: Odibee;
+    src: url("fonts/Odibee_Sans/OdibeeSans-Regular.ttf");
+}
+
 .homeViewTab {
     background-color: #628BB4;
 }
 
 .playerSelectionTab {
     background-color: white;
+}
+
+.gameViewTab {
+    background-color: white;
+    overflow: hidden;
 }
 
 .mainLogo {
@@ -78,7 +88,105 @@
 }
 
 .playerReadyButton {
-    top: 520px;
-    left: 366px;
+    top: 510px;
+    left: 367px;
     position: absolute;
+}
+
+.playerNameInput {
+    top: 438px;
+    left: 305px;
+    position: absolute;
+    border: 4px solid #628BB4;
+    border-radius: 10px;
+    text-align: center;
+    width: 191px;
+    height: 50px;
+    font-family: "Odibee";
+    font-size: 30px;
+    color: #F8B03D;
+}
+
+.returnButton {
+    top: 10px;
+    left: 10px;
+    position: absolute;
+}
+
+table, th, td {
+    border: 3px solid #F8B03D; 
+    padding-left: 18px;
+    padding-right: 18px;
+    text-align: center;
+    color: #7B42B4;
+    font-family: "Odibee";
+}
+.scoreCard {
+    top: 60px;
+    left: 469px;
+    position: absolute;
+}
+
+.diceA {
+    top: 280px;
+    left: 345px;
+    position: absolute;
+}
+
+.diceB {
+    top: 280px;
+    left: 279px;
+    position: absolute;
+}
+
+.diceC {
+    top: 280px;
+    left: 213px;
+    position: absolute;
+}
+
+.diceD {
+    top: 280px;
+    left: 147px;
+    position: absolute;
+}
+
+.diceE {
+    top: 280px;
+    left: 81px;
+    position: absolute;
+}
+
+.diceF {
+    top: 280px;
+    left: 15px;
+    position: absolute;
+}
+
+.playerOne {
+    top: 460px;
+    left: 170px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+.playerTwo {
+    top: 103px;
+    left: 170px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+.rollButton {
+    top: 540px;
+    left: 176px;
+    position: absolute; 
+}
+
+@keyframes animateCell {
+    0%   {opacity: 0}
+    50%  {opacity: 1}
+    100% {opacity: 0}
 }
